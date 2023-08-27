@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+    public:
+       int data;
+       Node *left;
+       Node *right;
+       Node(int val){
+          data = val;
+           left=right=NULL;
+       }
+};
+vector<int> rightview(Node* root){
+
+
+vector<int> ans;
+if(root==NULL) return {};
+  queue<Node*> q;
+  q.push(root);
+  while(!q.empty()){
+    int nodesAtCurrentLevel=q.size();
+    for(int i =0;i<nodesAtCurrentLevel;i++){
+            Node* currNode=q.front();
+        q.pop();
+
+        if(i==nodesAtCurrentLevel-1) {
+            ans.push_back(currNode->data);
+        }
+
+
+        if(currNode->left){
+            q.push(currNode->left);
+        }
+        if(currNode->right){
+            q.push(currNode->right);
+        }
+
+    }
+
+
+    }
+
+
+
+  return ans;
+
+}
+
+
+int main() {
+       Node *root = new Node(2);
+       root->left = new Node(4);
+       root->right = new Node(10);
+       root->left->left = new Node(6);
+       root->left->right = new Node(5);
+       root->right->right = new Node(11);
+       vector<int> ans=rightview(root);
+       for(auto it:ans){
+        cout<<it<<" ";
+       }cout<<endl;
+}
+
+
+
+
