@@ -11,39 +11,39 @@ class Node{
            left=right=NULL;
        }
 };
-vector<int> rightview(Node* root){
-
-
+vector<int> bottomview(Node* root){
 vector<int> ans;
 if(root==NULL) return {};
-  queue<Node*> q;
-  q.push(root);
-  while(!q.empty()){
+queue<pair<Node*,int>> q;
+q.push(make_pair(root,0));
+map<int,int> m;
+while(!q.empty()){
     int nodesAtCurrentLevel=q.size();
-    for(int i =1;i<=nodesAtCurrentLevel;i++){
-            Node* currNode=q.front();
+    while(nodesAtCurrentLevel--){
+        pair<Node*,int> p=q.front();
+        Node* currNode=p.first;
+        int currentColumn=p.second;
         q.pop();
-
-        if(i==nodesAtCurrentLevel) {
-            ans.push_back(currNode->data);
-        }
-
+           m[currentColumn]=currNode->data;
 
         if(currNode->left){
-            q.push(currNode->left);
+            q.push(make_pair(currNode->left,currentColumn-1));
         }
         if(currNode->right){
-            q.push(currNode->right);
+             q.push(make_pair(currNode->right,currentColumn+1));
         }
 
-    }
-
 
     }
 
 
+}
+for(auto it:m){
+    ans.push_back(it.second);
+}
 
-  return ans;
+
+return ans;
 
 }
 
@@ -54,13 +54,14 @@ int main() {
        root->right = new Node(10);
        root->left->left = new Node(6);
        root->left->right = new Node(5);
-       root->right->left = new Node(14);
        root->right->right = new Node(11);
-       vector<int> ans=rightview(root);
+       vector<int> ans=bottomview(root);
        for(auto it:ans){
         cout<<it<<" ";
        }cout<<endl;
+
 }
+
 
 
 

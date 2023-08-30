@@ -14,31 +14,35 @@ class Node{
 vector<int> topview(Node* root){
 vector<int> ans;
 if(root==NULL) return {};
-queue<pair<Node*,int>> q;
+queue<pair<Node*, int>> q;
 q.push(make_pair(root,0));
+
 map<int,int> m;
 while(!q.empty()){
-    int nodesAtCurrentLevel=q.size();
-    while(nodesAtCurrentLevel--){
-        pair<Node*,int> p=q.front();
-        Node* currNode=p.first;
-        int currentColumn=p.second;
-        q.pop();
-        if(m.find(currentColumn)==m.end()){
-           m[currentColumn]=currNode->data;
-        }
-        if(currNode->left){
-            q.push(make_pair(currNode->left,currentColumn-1));
-        }
-        if(currNode->right){
-             q.push(make_pair(currNode->right,currentColumn+1));
-        }
 
-
-    }
+    int currNodesLevel =q.size();
+while(currNodesLevel--){
+     pair<Node*, int> p=q.front();
+      Node* currentNode=p.first;
+      int currentColumn=p.second;
+      q.pop();
+      if(m.find(currentColumn)==m.end()){
+        m[currentColumn]=currentNode->data;
+      }
+      if(currentNode->left){
+        q.push(make_pair(currentNode->left,currentColumn-1));
+      }
+       if(currentNode->right){
+        q.push(make_pair(currentNode->right,currentColumn+1));
+      }
 
 
 }
+
+}
+
+
+
 for(auto it:m){
     ans.push_back(it.second);
 }

@@ -13,11 +13,14 @@ class Node{
 };
 void levelOrderTraversal(Node* root){
 
-if(root==NULL) return;
+if(root==NULL){
+    return ;
+}
   queue<Node*> q;
   q.push(root);
   while(!q.empty()){
     int nodesAtCurrentLevel=q.size();
+
       for(int i =0;i<nodesAtCurrentLevel;i++){
         Node* currNode=q.front();
         q.pop();
