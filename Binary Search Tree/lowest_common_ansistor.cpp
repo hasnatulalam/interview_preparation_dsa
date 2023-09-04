@@ -72,7 +72,7 @@ int main()
     for(int i = 0; i < n; i++){
         cin>>x;
         if(i == 0)
-            root = insertBST(root, x);
+            root=insertBST(root,x);
         else
             insertBST(root, x);
     }
